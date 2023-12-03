@@ -10,7 +10,7 @@ namespace ProyectoVotosBaseDartos.ViewModel
     public class politicPartyModelView : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        private const String cnstr = "server=localhost;uid = JoseVicente;pwd=Admin1234@#;database=maptrap";
+        private const String cnstr = "server=localhost;uid = JoseVi;pwd=admin;database=parties";
 
         private ObservableCollection<politicParty> _politicParties;
         private String _name = "";
@@ -68,6 +68,7 @@ namespace ProyectoVotosBaseDartos.ViewModel
         }
         public void LoadParty()
         {
+            if (politicParties == null) _politicParties = new ObservableCollection<politicParty>();
             String SQL = $"SELECT acrom, name, president FROM politicparties;";
             DataTable dt = MySQLDataManagement.LoadData(SQL, cnstr);
             if (dt.Rows.Count > 0)

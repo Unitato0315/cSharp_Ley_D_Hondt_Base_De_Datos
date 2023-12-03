@@ -23,12 +23,16 @@ namespace ProyectoVotosBaseDartos
     {
         private const int POPULATION = 6921267; // Constante con la poblacion de madrid
         private politicPartyModelView model = new politicPartyModelView();
+        private abtentionVotesModelView abtentionVotes = new abtentionVotesModelView();
         public MainWindow()
         {
             InitializeComponent();
             population.Text = POPULATION.ToString();
             DataContext = model;
             model.LoadParty();
+            abtentionVotes.LoadAbstention();
+            abstention.Text = abtentionVotes.totalVotes.ToString();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -36,6 +40,8 @@ namespace ProyectoVotosBaseDartos
             if (abstention.Text.Length != 0 && nVotes.Text.Length != 0 && !nVotes.Text.Equals("Error") && !nVotes.Text.Equals("Error solo acepta numeros"))
             {
                 parties.IsEnabled = true;
+                abtentionVotes.totalVotes = int.Parse(abstention.Text);
+                abtentionVotes.UpdateAbstention();
                 parties.Focus();
                 if (model.politicParties.Count == 10)
                 {
